@@ -29,13 +29,21 @@ This module will manage the pre-sales activities, including the collection of cu
 
 Provide a button on the CRM > Opportunity view to launch the CRM-Form for a sales user.
 
+The data collected by Salesperson on a CRM-Opp on a form (generated on FormBuilder) is stored on a separate Odoo model (not crm.lead, not project.project). This model is accessible from other Odoo modules like CRM, Project etc.
+
 ### 3.3 Projects Module
 This standard Odoo module will be responsible for managing the project activities after the successful transfer of customer requirements from the Sales Module. Project managers will review the data and communicate with salespeople for any clarification needed.
 
-If certain fields are missing or improperly filled by Salespeople, a PM can "return them to CRM" and seek clarifications. This happens by changing the status of the dataset to "Sales Revision". A message is posted in the CRM-Chatter, and an Activity is posted for the Salesperson with a list of missing items as a checkbox list. PM is able to mark the fields that are missing or incorrectly filled out (which are listed in the Salesperson's Activity list).
+- If certain fields are missing or improperly filled by Salespeople, a PM can "return them to CRM" and seek clarifications. 
+- This happens by changing the status of the dataset to "Sales Revision". 
+- A message is posted in the CRM-Chatter, and an Activity is posted for the Salesperson with a list of missing items as a checkbox list. 
+- PM is able to mark the fields that are missing or incorrectly filled out (which are listed in the Salesperson's Activity list).
 
-### 3.4 Communication Module
-~This module will facilitate communication between salespeople and project managers. It will allow project managers to request clarification from salespeople by generating checklists of data fields that require additional information.~
+### 3.4 Link via SaleOrder
+There is a one-to-one relationship between a CRM-Opp and a Project, connected via SaleOrder.
+
+![2023-04-21_18-05-29](https://user-images.githubusercontent.com/7826363/233683275-98277952-046b-418c-81a8-1d803932ab0e.png)
+
 
 ### 3.5 Plausibility Check Module
 This module will validate customer requirements collected in the pre-sales phase by performing plausibility checks. Only validated data will be allowed to be transferred to the Projects Module. It is possible to describe the fields in FormBuilder, while marking them as mandatory or not.
