@@ -2,7 +2,7 @@
 
 ## 1. Introduction
 ### 1.1 Purpose
-This document describes the software requirements specifications for an Odoo-based solution designed to streamline the process of transferring customer requirements in photovoltaic installation companies from the sales stage to the project stage. The solution will use the free form builder module from the Odoo App Store and include built-in plausibility checks, communication between sales and project managers, and data consistency across modules.
+This document describes the software requirements specifications for an Odoo-based solution designed to streamline the process of transferring customer requirements in photovoltaic installation companies from the sales stage to the project stage. The solution will use the free Form Builder module from the Odoo App Store and include built-in plausibility checks, communication between sales and project managers, and data consistency across modules.
 
 ### 1.2 Scope
 The scope of this document is limited to the identification of required modules, features, and functionalities for the Odoo-based solution, applicable to Odoo version 15.
@@ -26,6 +26,8 @@ The Form Builder Module will be used to create custom forms for capturing custom
 
 ### 3.2 CRM Module
 This module will manage the pre-sales activities, including the collection of customer requirements using the forms created in the Form Builder Module. The information collected in this module will be passed on to the Projects Module after passing plausibility checks.
+
+Provide a button on the CRM > Opportunity view to launch the CRM-Form for a sales user.
 
 ### 3.3 Projects Module
 This standard Odoo module will be responsible for managing the project activities after the successful transfer of customer requirements from the Sales Module. Project managers will review the data and communicate with salespeople for any clarification needed.
@@ -54,6 +56,8 @@ The solution must provide efficient data transfer between the Sales Module and P
 
 ### 5.2 Security
 The system must adhere to Odoo version 15's security standards, ensuring the protection of sensitive customer information and company data.
+
+Only Admin can create, edit and deactivate/delete a form.
 
 ### 5.3 Scalability
 The solution must be scalable to accommodate the growth of the photovoltaic installation company, including handling increased data volume and user load.
