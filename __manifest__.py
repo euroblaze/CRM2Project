@@ -1,10 +1,10 @@
 {
-    "name": "Plausibility Check Module",
+    "name": "CRM2Project Module with Plausibility Checks",
     "version": "1.0",
     "category": "Sales",
-    "summary": "Module to perform plausibility checks on customer requirements",
-    "author": "Your Name",
-    "website": "https://www.example.com",
+    "summary": "Module to intake data from FormBuilder/Formio, perform plausibility checks on it and pass on to Projects module for further processes",
+    "author": "Simplify-ERP™",
+    "website": "https://simplify-erp.de",
     "depends": ["base", "sale", "project"],
     "data": [
         "security/ir.model.access.csv",
