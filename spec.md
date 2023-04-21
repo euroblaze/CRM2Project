@@ -32,14 +32,18 @@ This module will be responsible for managing the project activities after the su
 
 If certain fields are missing or improperly filled by Salespeople, a PM can "return them to CRM" and seek clarifications. This happens by changing the status of the dataset to "Sales Revision". A message is posted in the CRM-Chatter, and an Activity is posted for the Salesperson with a list of missing items as a checkbox list. PM is able to mark the fields that are missing or incorrectly filled out (which are listed in the Salesperson's Activity list).
 
-### ~3.4 Communication Module
-This module will facilitate communication between salespeople and project managers. It will allow project managers to request clarification from salespeople by generating checklists of data fields that require additional information.~
+### 3.4 Communication Module
+~This module will facilitate communication between salespeople and project managers. It will allow project managers to request clarification from salespeople by generating checklists of data fields that require additional information.~
 
 ### 3.5 Plausibility Check Module
-This module will validate customer requirements collected in the pre-sales phase by performing plausibility checks. Only validated data will be allowed to be transferred to the Projects Module.
+This module will validate customer requirements collected in the pre-sales phase by performing plausibility checks. Only validated data will be allowed to be transferred to the Projects Module. It is possible to describe the fields in FormBuilder, while marking them as mandatory or not.
 
 ### 3.6 Data Integration Module
-This module will ensure that the data collected by the Form Builder Module is consistent and compatible between the Sales Module and the Projects Module.
+This module will ensure that the data collected by the Form Builder Module is consistent and compatible between the Sales Module and the Projects Module. Consider the 3 options of:
+
+- Adding fields to CRM model
+- Adding fields to Projects model
+- Creating a completely new model in which the FormBuilder inputs are managed.
 
 ## 4. External Interfaces
 The Odoo-based solution will use Odoo version 15's API to communicate with other systems and services, as well as to ensure compatibility with the existing Odoo infrastructure.
