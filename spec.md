@@ -25,10 +25,10 @@ The system will be composed of several Odoo modules, including:
 The Form Builder Module will be used to create custom forms for capturing customer requirements during the pre-sales phase. The module will ensure that the collected data is compatible with both the Sales Module and Projects Module.
 
 ### 3.2 CRM Module
-This module will manage the pre-sales activities, including the collection of customer requirements using the forms created in the Form Builder Module. The data collected in this module will be passed on to the Projects Module after passing plausibility checks.
+This module will manage the pre-sales activities, including the collection of customer requirements using the forms created in the Form Builder Module. The information collected in this module will be passed on to the Projects Module after passing plausibility checks.
 
 ### 3.3 Projects Module
-This module will be responsible for managing the project activities after the successful transfer of customer requirements from the Sales Module. Project managers will review the data and communicate with salespeople for any clarification needed.
+This standard Odoo module will be responsible for managing the project activities after the successful transfer of customer requirements from the Sales Module. Project managers will review the data and communicate with salespeople for any clarification needed.
 
 If certain fields are missing or improperly filled by Salespeople, a PM can "return them to CRM" and seek clarifications. This happens by changing the status of the dataset to "Sales Revision". A message is posted in the CRM-Chatter, and an Activity is posted for the Salesperson with a list of missing items as a checkbox list. PM is able to mark the fields that are missing or incorrectly filled out (which are listed in the Salesperson's Activity list).
 
