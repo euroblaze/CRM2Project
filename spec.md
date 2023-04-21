@@ -10,25 +10,30 @@ The scope of this document is limited to the identification of required modules,
 ## 2. System Overview
 The system will be composed of several Odoo modules, including:
 
-- Form Builder Module
-- Sales Module
-- Projects Module
-- Communication Module
+- Form Builder Module ([Available from AppStore](https://apps.odoo.com/apps/modules/15.0/formio/))
+- CRM Module (Standard Odoo)
+- Projects Module (Standard Odoo)
+- ~Communication Module~
 - Plausibility Check Module
 - Data Integration Module
 
 ## 3. Modules and Functionalities
 ### 3.1 Form Builder Module
+
+[Available from AppStore](https://apps.odoo.com/apps/modules/15.0/formio/)
+
 The Form Builder Module will be used to create custom forms for capturing customer requirements during the pre-sales phase. The module will ensure that the collected data is compatible with both the Sales Module and Projects Module.
 
-### 3.2 Sales Module
+### 3.2 CRM Module
 This module will manage the pre-sales activities, including the collection of customer requirements using the forms created in the Form Builder Module. The data collected in this module will be passed on to the Projects Module after passing plausibility checks.
 
 ### 3.3 Projects Module
 This module will be responsible for managing the project activities after the successful transfer of customer requirements from the Sales Module. Project managers will review the data and communicate with salespeople for any clarification needed.
 
-### 3.4 Communication Module
-This module will facilitate communication between salespeople and project managers. It will allow project managers to request clarification from salespeople by generating checklists of data fields that require additional information.
+If certain fields are missing or improperly filled by Salespeople, a PM can "return them to CRM" and seek clarifications. This happens by changing the status of the dataset to "Sales Revision". A message is posted in the CRM-Chatter, and an Activity is posted for the Salesperson with a list of missing items as a checkbox list. PM is able to mark the fields that are missing or incorrectly filled out (which are listed in the Salesperson's Activity list).
+
+### ~3.4 Communication Module
+This module will facilitate communication between salespeople and project managers. It will allow project managers to request clarification from salespeople by generating checklists of data fields that require additional information.~
 
 ### 3.5 Plausibility Check Module
 This module will validate customer requirements collected in the pre-sales phase by performing plausibility checks. Only validated data will be allowed to be transferred to the Projects Module.
