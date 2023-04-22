@@ -1,4 +1,4 @@
-# Photovoltaic Installation Management System
+# Sharing Customer Requirements collected in CRM to Projects Module
 
 This Odoo-based solution streamlines the process of transferring customer requirements in photovoltaic installation companies from the sales stage to the project stage. The solution includes modules for form building, sales, projects, communication, plausibility checks, and data integration.
 
