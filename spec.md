@@ -40,13 +40,15 @@ This standard Odoo module will be responsible for managing the project activitie
 - PM is able to mark the fields that are missing or incorrectly filled out (which are listed in the Salesperson's Activity list).
 
 ### 3.4 Link via SaleOrder
+
 There is a one-to-one relationship between a CRM-Opp and a Project, connected via SaleOrder.
 
 ![2023-04-21_18-05-29](https://user-images.githubusercontent.com/7826363/233683275-98277952-046b-418c-81a8-1d803932ab0e.png)
 
 
 ### 3.5 Plausibility Check Module
-This module will validate customer requirements collected in the pre-sales phase by performing plausibility checks. Only validated data will be allowed to be transferred to the Projects Module. It is possible to describe the fields in FormBuilder, while marking them as mandatory or not.
+
+This module will validate customer requirements collected in the pre-sales phase (on the form provided by FormBilder) by performing plausibility checks. Only validated data will be allowed to be transferred to the Projects Module. It is possible to describe the fields in FormBuilder, while marking them as mandatory or not.
 
 ### 3.6 Data Integration Module
 This module will ensure that the data collected by the Form Builder Module is consistent and compatible between the Sales Module and the Projects Module. Consider the 3 options of:
