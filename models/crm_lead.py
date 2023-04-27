@@ -66,4 +66,29 @@ class CrmLead(models.Model):
                 "res_id": res_id.id,
             }
         else:
-            pass
+            builder_id = self.env['formio.builder'].sudo().search([('res_model', '=', 'crm.lead')], limit=1)
+            values = {
+                'builder_id': builder_id.id,
+                'title': builder_id.title,
+                'show_title': builder_id.show_form_title,
+                'show_state': builder_id.show_form_state,
+                'show_id': builder_id.show_form_id,
+                'show_uuid': builder_id.show_form_uuid,
+                'show_user_metadata': builder_id.show_form_user_metadata,
+                'public_share': builder_id.public,
+                'public_access_interval_number': builder_id.public_access_interval_number,
+                'public_access_interval_type': builder_id.public_access_interval_type,
+                'public_access_date_from': fields.Datetime.now() if builder_id.public else False,
+            }
+            new_form = self.env['formio.form'].with_context(
+                default_res_model_id=self.formio_this_model_id,
+                default_crm_lead_id=self.id,
+            ).sudo().create(values)
+            return {
+                "name": self.name,
+                "type": "ir.actions.act_window",
+                "res_model": "formio.form",
+                "view_mode": "formio_form",
+                "target": "new",
+                "res_id": new_form.id,
+            }
