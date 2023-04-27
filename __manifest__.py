@@ -1,5 +1,5 @@
 {
-    "name": "CRM2Project Module with Plausibility Checks",
+    "name": "CRM2Project Module",
     "version": "1.0",
     "category": "Sales",
     "summary": "Module to intake data from FormBuilder/Formio, perform plausibility checks on it and pass on to Projects module for further processes",
