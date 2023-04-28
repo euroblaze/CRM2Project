@@ -1,0 +1,15 @@
+<odoo>
+    <record id="project_form_view_inherit" model="ir.ui.view">
+        <field name="name">project.form.view.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//header" position="inside">
+                <field name="hide_open_form_button" invisible="1"/>
+                <button string="Open Form" name="action_open_form" type="object" class="btn-primary" attrs="{'invisible': [('hide_open_form_button', '=', True)]}"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
