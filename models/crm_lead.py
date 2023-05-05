@@ -1,4 +1,5 @@
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class CrmLead(models.Model):
@@ -66,7 +67,9 @@ class CrmLead(models.Model):
                 "res_id": res_id.id,
             }
         else:
-            builder_id = self.env['formio.builder'].sudo().search([('res_model', '=', 'crm.lead')], limit=1)
+            builder_id = self.env['formio.builder'].sudo().search([('res_model', '=', 'crm.lead'), ('state', '=', 'CURRENT')], limit=1)
+            if not builder_id:
+                raise ValidationError(_('No Form Found!'))
             values = {
                 'builder_id': builder_id.id,
                 'title': builder_id.title,
