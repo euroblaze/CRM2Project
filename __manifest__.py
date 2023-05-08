@@ -18,6 +18,14 @@
         "views/formio_form_views.xml",
         "views/project.xml",
     ],
+    'assets': {
+        'web.assets_backend': [
+            'CRM2Project/static/src/js/formio_form.js',
+        ],
+        'web.assets_qweb': [
+            'CRM2Project/static/src/xml/**/*',
+        ],
+    },
     "installable": True,
     "application": False,
     "auto_install": False,

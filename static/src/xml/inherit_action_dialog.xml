@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="inherit.web.LegacyAdaptedActionDialogFooter" t-inherit="web.LegacyAdaptedActionDialogFooter" t-inherit-mode="extension" owl="1">
+        <xpath expr="//button" position="replace">
+            <t t-if="props.actionProps.type === 'formio_form' and props.actionProps.context.formio_crm">
+                <button class="btn btn-primary" t-on-click="close">
+                  <t>Close</t>
+                </button>
+            </t>
+            <t t-elif="props.actionProps.type === 'formio_form' and props.actionProps.context.formio_project">
+                <button class="btn btn-primary" t-on-click="close">
+                  <t>Close</t>
+                </button>
+                <button class="btn btn-primary" t-on-click="_actionSendMessage">
+                  <t>Send message to salesperson</t>
+                </button>
+            </t>
+            <t t-else="">
+                <button class="btn btn-primary" t-on-click="close">
+                  <t>Ok</t>
+                </button>
+            </t>
+        </xpath>
+    </t>
+</templates>
