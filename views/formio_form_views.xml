@@ -10,4 +10,17 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_formio_form_tree_inherit" model="ir.ui.view">
+        <field name="name">view.formio.form.tree.inherit</field>
+        <field name="model">formio.form</field>
+        <field name="inherit_id" ref="formio.view_formio_form_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
 </odoo>

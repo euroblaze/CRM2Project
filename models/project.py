@@ -27,4 +27,5 @@ class ProjectProject(models.Model):
                 "view_mode": "formio_form",
                 "target": "new",
                 "res_id": res_id.id,
+                "context": {'formio_project': 1},
             }
