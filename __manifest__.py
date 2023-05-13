@@ -13,12 +13,10 @@
     ],
     "data": [
         # "views/plausibility_check_view.xml",
-        "security/ir.model.access.csv",
         "data/formio_crm_data.xml",
         "views/crm_lead.xml",
         "views/formio_form_views.xml",
         "views/project.xml",
-        "wizard/send_message.xml",
     ],
     'assets': {
         'web.assets_backend': [

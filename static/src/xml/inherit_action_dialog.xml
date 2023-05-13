@@ -6,13 +6,16 @@
                 <button class="btn btn-primary" t-on-click="close">
                   <t>Close</t>
                 </button>
+                <button class="btn btn-primary" t-on-click="_sendToPm">
+                  <t>Send to project manager</t>
+                </button>
             </t>
             <t t-elif="props.actionProps.type === 'formio_form' and props.actionProps.context.formio_project">
                 <button class="btn btn-primary" t-on-click="close">
                   <t>Close</t>
                 </button>
-                <button class="btn btn-primary" t-on-click="_actionSendMessage">
-                  <t>Send message to salesperson</t>
+                <button class="btn btn-primary" t-on-click="_actionMarkField">
+                  <t>Mark incorrectly fields</t>
                 </button>
             </t>
             <t t-else="">
@@ -21,5 +24,29 @@
                 </button>
             </t>
         </xpath>
+    </t>
+
+    <t t-name="CRM2Project.pickField">
+        <div>
+            <table class="table table-bordered table-hover text-center">
+                <thead>
+                    <tr>
+                        <th style="width: 40%" scope="col">Label</th>
+                        <th style="width: 50%" scope="col">Value</th>
+                        <th style="width: 10%" scope="col">Check box</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="listData" t-as="data">
+                        <td t-esc="data.label"/>
+                        <td t-esc="data.value"/>
+                        <td><input type="checkbox" class="check-box" t-attf-id="{{data.key}}"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <textarea id="note" placeholder="Add your note here"></textarea>
+        </div>
     </t>
 </templates>
