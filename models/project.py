@@ -20,7 +20,8 @@ class ProjectProject(models.Model):
         opp_id = self.sale_line_id.order_id.opportunity_id
         res_id = self.env['formio.form'].sudo().search([('crm_lead_id', '=', opp_id.id)], limit=1)
         if res_id:
-            data = res_id.get_submission_data()
+            res_id.sudo().write({'state': 'COMPLETE'})
+            data = res_id._get_project_data()
             return {
                 "name": self.name,
                 "type": "ir.actions.act_window",
@@ -28,24 +29,24 @@ class ProjectProject(models.Model):
                 "view_mode": "formio_form",
                 "target": "new",
                 "res_id": res_id.id,
-                "context": {'formio_project': 1, 'data': data},
+                "context": {'formio_project': 1, 'data': data, 'title': opp_id.name},
             }
 
-    def action_send_to_salesperson(self, data, note):
-        print(data)
-        self.ensure_one()
+    def action_send_to_salesperson(self, datas, note):
         project = self.env['project.project'].browse(self.env.context.get('active_id'))
+        content = f"You need to re-check this information: {', '.join(list(data.get('label') for data in datas))}"
         self.env['mail.activity'].with_user(self.env.user).create({
             'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
             'res_model_id': self.env.ref('crm.model_crm_lead').id,
             'res_id': project.sale_line_id.order_id.opportunity_id.id,
-            'user_id': self.env.user.id,
-            'summary': 'Sales Revision',
+            'user_id': project.sale_line_id.order_id.opportunity_id.user_id.id,
+            'summary': note,
+            'note': content,
         })
         self.env['mail.message'].create({
             'model': 'crm.lead',
             'res_id': project.sale_line_id.order_id.opportunity_id.id,
-            'subject': 'Sales Revision',
-            'body': self.content,
+            'subject': note,
+            'body': content,
         })
         return True

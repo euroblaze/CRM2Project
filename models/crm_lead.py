@@ -56,8 +56,8 @@ class CrmLead(models.Model):
     def action_open_form(self):
         self.ensure_one()
         res_id = self.env['formio.form'].sudo().search([('crm_lead_id', '=', self.id)], limit=1)
-        res_id.sudo().write({'state': 'PENDING'})
         if res_id:
+            res_id.sudo().write({'state': 'PENDING'})
             return {
                 "name": self.name,
                 "type": "ir.actions.act_window",
@@ -97,3 +97,22 @@ class CrmLead(models.Model):
                 "res_id": new_form.id,
                 "context": {'formio_crm': 1},
             }
+
+    def action_send_to_pm(self):
+        opp = self.env['crm.lead'].browse(self.env.context.get('active_id'))
+        project = opp.
+        self.env['mail.activity'].with_user(self.env.user).create({
+            'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
+            'res_model_id': self.env.ref('crm.model_crm_lead').id,
+            'res_id': project.sale_line_id.order_id.opportunity_id.id,
+            'user_id': self.env.user.id,
+            'summary': note,
+            'note': content,
+        })
+        self.env['mail.message'].create({
+            'model': 'crm.lead',
+            'res_id': project.sale_line_id.order_id.opportunity_id.id,
+            'subject': note,
+            'body': content,
+        })
+        return True
