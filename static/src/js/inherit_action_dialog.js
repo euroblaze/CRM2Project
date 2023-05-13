@@ -44,12 +44,13 @@ patch(ActionDialog.prototype, "inherit_action_dialog", {
     },
 
     async _sendToPm() {
-        debugger
         return rpc.query({
             model: 'crm.lead',
             method: 'action_send_to_pm',
             args: [[]],
             context: this.props.actionProps.context,
+        }).then(function () {
+            document.getElementById('button_close').click();
         });
     },
 

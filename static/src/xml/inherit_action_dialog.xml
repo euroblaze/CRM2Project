@@ -3,12 +3,14 @@
     <t t-name="inherit.web.LegacyAdaptedActionDialogFooter" t-inherit="web.LegacyAdaptedActionDialogFooter" t-inherit-mode="extension" owl="1">
         <xpath expr="//button" position="replace">
             <t t-if="props.actionProps.type === 'formio_form' and props.actionProps.context.formio_crm">
-                <button class="btn btn-primary" t-on-click="close">
+                <button id="button_close" class="btn btn-primary" t-on-click="close">
                   <t>Close</t>
                 </button>
-                <button class="btn btn-primary" t-on-click="_sendToPm">
-                  <t>Send to project manager</t>
-                </button>
+                <t t-if="props.actionProps.context.show_button">
+                    <button class="btn btn-primary" t-on-click="_sendToPm">
+                        <t>Send to project manager</t>
+                    </button>
+                </t>
             </t>
             <t t-elif="props.actionProps.type === 'formio_form' and props.actionProps.context.formio_project">
                 <button class="btn btn-primary" t-on-click="close">

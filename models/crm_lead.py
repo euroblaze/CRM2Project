@@ -55,6 +55,7 @@ class CrmLead(models.Model):
 
     def action_open_form(self):
         self.ensure_one()
+        show_button = True if self.order_ids.mapped('order_line.project_id') else False
         res_id = self.env['formio.form'].sudo().search([('crm_lead_id', '=', self.id)], limit=1)
         if res_id:
             res_id.sudo().write({'state': 'PENDING'})
@@ -65,7 +66,7 @@ class CrmLead(models.Model):
                 "view_mode": "formio_form",
                 "target": "new",
                 "res_id": res_id.id,
-                "context": {'formio_crm': 1},
+                "context": {'formio_crm': 1, 'show_button': show_button},
             }
         else:
             builder_id = self.env['formio.builder'].sudo().search([('res_model', '=', 'crm.lead'), ('state', '=', 'CURRENT')], limit=1)
@@ -95,24 +96,19 @@ class CrmLead(models.Model):
                 "view_mode": "formio_form",
                 "target": "new",
                 "res_id": new_form.id,
-                "context": {'formio_crm': 1},
+                "context": {'formio_crm': 1, 'show_button': show_button},
             }
 
     def action_send_to_pm(self):
         opp = self.env['crm.lead'].browse(self.env.context.get('active_id'))
-        project = opp.
+        project = opp.order_ids.mapped('order_line.project_id')[0]
+        if not project.user_id:
+            raise ValidationError(_(f'No project manager found for project {project.name}'))
         self.env['mail.activity'].with_user(self.env.user).create({
             'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
-            'res_model_id': self.env.ref('crm.model_crm_lead').id,
-            'res_id': project.sale_line_id.order_id.opportunity_id.id,
-            'user_id': self.env.user.id,
-            'summary': note,
-            'note': content,
-        })
-        self.env['mail.message'].create({
-            'model': 'crm.lead',
-            'res_id': project.sale_line_id.order_id.opportunity_id.id,
-            'subject': note,
-            'body': content,
+            'res_model_id': self.env.ref('project.model_project_project').id,
+            'res_id': project.id,
+            'user_id': project.user_id.id,
+            'summary': 'Check Form Information',
         })
         return True
