@@ -1,6 +1,7 @@
 from odoo import api, fields, models, _
 from odoo.addons.formio.models.formio_builder import STATE_CURRENT as BUILDER_STATE_CURRENT
 from odoo.addons.formio.utils import get_field_selection_label
+import json
 
 
 class Form(models.Model):
@@ -41,3 +42,19 @@ class Form(models.Model):
             ]
             res['domain'] = {'builder_id': domain}
         return res
+
+    def _get_project_data(self):
+        self.ensure_one()
+        submission_data = json.loads(self.submission_data)
+        components = json.loads(self.env['formio.builder'].browse(self.builder_id.id).schema).get('components')
+        label_dict = self._get_label(components)
+        data = [{'key': key, 'label': label_dict[key], 'value': value} for key, value in submission_data.items() if
+                label_dict.get(key)]
+        return data
+
+    def _get_label(self, components, label_dict={}):
+        for component in list(filter(lambda com: com['type'] != 'button', components)):
+            label_dict[component.get('key')] = component.get('label')
+            if component.get('components'):
+                self._get_label(components=component['components'], label_dict=label_dict)
+        return label_dict
