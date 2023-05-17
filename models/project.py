@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+import json
 
 
 class ProjectProject(models.Model):
@@ -21,7 +22,10 @@ class ProjectProject(models.Model):
         res_id = self.env['formio.form'].sudo().search([('crm_lead_id', '=', opp_id.id)], limit=1)
         if res_id:
             res_id.sudo().write({'state': 'COMPLETE'})
-            data = res_id._get_project_data()
+            submission_data = json.loads(res_id.submission_data)
+            components = json.loads(self.env['formio.builder'].browse(res_id.builder_id.id).schema).get('components')
+            label_list = res_id._get_label(components, submission_data, [], None)
+            data = res_id._get_project_data(label_list, submission_data, [])
             return {
                 "name": self.name,
                 "type": "ir.actions.act_window",
@@ -33,6 +37,8 @@ class ProjectProject(models.Model):
             }
 
     def action_send_to_salesperson(self, datas, note):
+        if not datas and not note:
+            return
         project = self.env['project.project'].browse(self.env.context.get('active_id'))
         content = f"You need to re-check this information: {', '.join(list(data.get('label') for data in datas))}"
         self.env['mail.activity'].with_user(self.env.user).create({

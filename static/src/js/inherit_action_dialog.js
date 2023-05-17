@@ -9,7 +9,6 @@ import rpc from 'web.rpc';
 patch(ActionDialog.prototype, "inherit_action_dialog", {
 
     _sendToSalesperson() {
-        debugger
         const valueCheckbox = this.$content.find('.check-box');
         let listValueCheckbox = [];
         valueCheckbox.map(el => listValueCheckbox.push({key: valueCheckbox[el].id, isChecked: valueCheckbox[el].checked}))
@@ -22,6 +21,8 @@ patch(ActionDialog.prototype, "inherit_action_dialog", {
             method: 'action_send_to_salesperson',
             args: [, listDatas, document.getElementById("note").value],
             context: this.__parentedParent.props.actionProps.context,
+        }).then(function () {
+            document.getElementById('button_close').click();
         });
     },
 
