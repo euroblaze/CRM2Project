@@ -46,13 +46,13 @@ class ProjectProject(models.Model):
             'res_model_id': self.env.ref('crm.model_crm_lead').id,
             'res_id': project.sale_line_id.order_id.opportunity_id.id,
             'user_id': project.sale_line_id.order_id.opportunity_id.user_id.id,
-            'summary': note,
+            'summary': 'Sales Revision',
             'note': content,
         })
         self.env['mail.message'].create({
             'model': 'crm.lead',
             'res_id': project.sale_line_id.order_id.opportunity_id.id,
-            'subject': note,
+            'subject': 'Sales Revision',
             'body': content,
         })
         return True

@@ -119,5 +119,5 @@ class Form(models.Model):
                 if label.get('components'):
                     sub_data = submission_data[label['key']] if label['type'] == 'container' else submission_data[label['key']]['data']
                     parent = label['label'] if label['type'] == 'tree' else False
-                    self.get_data(label['components'], sub_data, data_list, parent)
+                    self._get_project_data(label['components'], sub_data, data_list, parent)
         return data_list
