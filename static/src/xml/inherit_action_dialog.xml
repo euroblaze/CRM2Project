@@ -30,12 +30,17 @@
 
     <t t-name="CRM2Project.pickField">
         <div>
+            <div>
+                <textarea id="note" placeholder="Add your note here"/>
+            </div>
+            <br/>
             <table class="table table-bordered table-hover text-center text-break">
                 <thead>
                     <tr>
-                        <th style="width: 40%" scope="col">Text</th>
-                        <th style="width: 50%" scope="col">Value</th>
-                        <th style="width: 10%" scope="col">Check box</th>
+                        <th style="width: 20%" scope="col">Text</th>
+                        <th style="width: 40%" scope="col">Value</th>
+                        <th style="width: 30%" scope="col">Note</th>
+                        <th style="width: 10%" scope="col"/>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,18 +48,20 @@
                         <td t-if="data.parent_label">
                             <t t-esc="data.label"/> (<t t-esc="data.parent_label"/>)
                         </td>
-                        <td t-else="" t-esc="data.label" class="align-middle"/>
+                            <td t-else="" t-esc="data.label" class="align-middle"/>
                         <t t-if="data.type === 'selectboxes'">
-                            <td class="d-flex">
-                                <div t-foreach="data.value" t-as="value" class="form-check m-1" style="pointer-events: none">
-                                    <input type="checkbox" t-att-id="value" class="form-check-input" t-att-checked="value_value ? true : undefined"/>
-                                    <label t-att-for="value" class="form-check-label "><t t-esc="value"/></label>
+                            <td class="align-middle">
+                                <div class="d-flex">
+                                    <div t-foreach="data.value" t-as="value" class="form-check m-1" style="pointer-events: none">
+                                        <input type="checkbox" t-att-id="value" class="form-check-input" t-att-checked="value_value ? true : undefined"/>
+                                        <label t-att-for="value" class="form-check-label "><t t-esc="value"/></label>
+                                    </div>
                                 </div>
                             </td>
                         </t>
 
                         <t t-else="">
-                            <td>
+                            <td class="align-middle">
                                 <img t-if="data.type === 'signature'" t-attf-src="#{data.value}" class="img-fluid"/>
                                 <t t-elif="data.type === 'datetime'">
                                     <t t-set="time" t-value="new Date(data.value)"/>
@@ -107,13 +114,19 @@
                                 <t t-else="" t-esc="data.value"/>
                             </td>
                         </t>
-                        <td class="text-center align-middle"><input type="checkbox" class="check-box" t-attf-id="{{data.key}}"/></td>
+                        <td class="align-middle"><textarea t-att-data-key="data.key + '-' + data_index" disabled="true"/></td>
+                        <td class="text-center align-middle">
+                            <input
+                                type="checkbox"
+                                class="check-box"
+                                t-att-id="data.key"
+                                t-att-data-key="data.key + '-' + data_index"
+                                onchange="onChangeCheckbox(this)"
+                            />
+                        </td>
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div>
-            <textarea id="note" placeholder="Add your note here"></textarea>
         </div>
     </t>
 </templates>

@@ -39,20 +39,25 @@ class ProjectProject(models.Model):
     def action_send_to_salesperson(self, datas, note):
         if not datas and not note:
             return
+        fields_data, i = "", 1
+        for data in datas:
+            fields_data += f"{i}. {data.get('label', '')}: {data.get('value', '')}<br>" \
+                           f"{data.get('note', '')}<br>"
+            i += 1
         project = self.env['project.project'].browse(self.env.context.get('active_id'))
-        content = f"You need to re-check this information: {', '.join(list(data.get('label') for data in datas))}"
+        content = f"You need to re-check this information: <br>{note}<br> {fields_data}"
         self.env['mail.activity'].with_user(self.env.user).create({
             'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
             'res_model_id': self.env.ref('crm.model_crm_lead').id,
             'res_id': project.sale_line_id.order_id.opportunity_id.id,
             'user_id': project.sale_line_id.order_id.opportunity_id.user_id.id,
-            'summary': note,
+            'summary': 'Sales Revision',
             'note': content,
         })
         self.env['mail.message'].create({
             'model': 'crm.lead',
             'res_id': project.sale_line_id.order_id.opportunity_id.id,
-            'subject': note,
+            'subject': 'Sales Revision',
             'body': content,
         })
         return True

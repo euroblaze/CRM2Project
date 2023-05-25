@@ -20,7 +20,7 @@
     ],
     'assets': {
         'web.assets_backend': [
-            'CRM2Project/static/src/js/inherit_action_dialog.js',
+            'CRM2Project/static/src/js/**/*',
         ],
         'web.assets_qweb': [
             'CRM2Project/static/src/xml/**/*',

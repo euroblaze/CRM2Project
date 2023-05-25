@@ -11,11 +11,15 @@ patch(ActionDialog.prototype, "inherit_action_dialog", {
     _sendToSalesperson() {
         const valueCheckbox = this.$content.find('.check-box');
         let listValueCheckbox = [];
-        valueCheckbox.map(el => listValueCheckbox.push({key: valueCheckbox[el].id, isChecked: valueCheckbox[el].checked}))
+        valueCheckbox.map(el => listValueCheckbox.push({
+            key: valueCheckbox[el].id,
+            isChecked: valueCheckbox[el].checked,
+            note: $(`textarea[data-key|=${valueCheckbox[el].getAttribute('data-key')}]`)[0].value
+        }))
         let datas = [ ...this.__parentedParent.data ];
-        datas = datas.map(data => Object.assign(data, listValueCheckbox.find(value => value.key === data.key))).filter(d => d.isChecked === true);
+        datas = datas.map((data, index) => Object.assign(data, listValueCheckbox[index])).filter(d => d.isChecked === true);
         let listDatas = [];
-        datas.map(d => listDatas.push({'label': d.label, 'value': d.value}))
+        datas.map(d => listDatas.push({label: d.label, value: d.value, note: d.note}))
         return rpc.query({
             model: 'project.project',
             method: 'action_send_to_salesperson',
