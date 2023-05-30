@@ -19,7 +19,18 @@ patch(ActionDialog.prototype, "inherit_action_dialog", {
         let datas = [ ...this.__parentedParent.data ];
         datas = datas.map((data, index) => Object.assign(data, listValueCheckbox[index])).filter(d => d.isChecked === true);
         let listDatas = [];
-        datas.map(d => listDatas.push({label: d.label, value: d.value, note: d.note}))
+        datas.map(d => {
+            let value = d.value;
+            if (d.type === 'selectboxes') {
+                value = "";
+                Object.entries(d.value).forEach(entry => {
+                    if (entry[1] === true)
+                        if (!value) value = value + entry[0];
+                        else value = value + ', ' + entry[0];
+                });
+            }
+            listDatas.push({label: d.label, value: value, note: d.note})
+        });
         return rpc.query({
             model: 'project.project',
             method: 'action_send_to_salesperson',

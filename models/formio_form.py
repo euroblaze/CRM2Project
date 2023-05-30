@@ -65,7 +65,19 @@ class Form(models.Model):
                         'components': self._get_label(component['components'], sub_data, [], component.get('type')) if component.get('components') else []
                     })
                     continue
-
+                elif component.get('type') in ['select', 'selectboxes', 'radio']:
+                    if component['type'] == 'select':
+                        value_label = component['data'].get('values')
+                    else:
+                        value_label = component.get('values')
+                    value_label_dict = {value['value']: value['label'] for value in value_label}
+                    label_list.append({
+                        'key': component.get('key'),
+                        'label': component.get('label'),
+                        'type': component.get('type'),
+                        'value_label': value_label_dict,
+                    })
+                    continue
                 label_list.append({
                     'key': component.get('key'),
                     'label': component.get('label'),
@@ -102,8 +114,12 @@ class Form(models.Model):
                 value = submission_data[label['key']]
                 if label['type'] == 'address':
                     value = submission_data[label['key']].get('display_name')
-                if label['type'] in ['datagrid', 'editgrid']:
+                elif label['type'] in ['datagrid', 'editgrid']:
                     value = [label['components'], value]
+                elif label['type'] in ['select', 'radio']:
+                    value = label['value_label'].get(submission_data[label['key']]) or 'None'
+                elif label['type'] == 'selectboxes':
+                    value = {label['value_label'][value]: submission_data[label['key']][value] for value in label['value_label']}
                 if label['type'] == 'currency':
                     data_list.append({
                         'key': label['key'],
