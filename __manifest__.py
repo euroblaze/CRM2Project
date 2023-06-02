@@ -12,7 +12,6 @@
         "formio",
     ],
     "data": [
-        # "views/plausibility_check_view.xml",
         "data/formio_crm_data.xml",
         "views/crm_lead.xml",
         "views/formio_form_views.xml",
